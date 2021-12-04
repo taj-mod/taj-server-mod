@@ -1,24 +1,15 @@
 package com.allah.tajmod;
 
 import com.allah.tajmod.entity.HmaEntity;
-import com.allah.tajmod.entity.model.HmaEntityModel;
-import com.allah.tajmod.entity.renderer.HmaEntityRenderer;
 import com.allah.tajmod.item.HmaTools;
 import com.allah.tajmod.toolmaterials.HmaToolMaterial;
-import net.fabricmc.api.ClientModInitializer;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.fabricmc.api.ModInitializer;
-import net.fabricmc.fabric.api.client.rendereregistry.v1.EntityRendererRegistry;
-import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
-import net.minecraft.client.render.entity.model.EntityModelLayer;
 import net.minecraft.entity.EntityDimensions;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnGroup;
-import net.minecraft.entity.mob.EndermanEntity;
 import net.minecraft.item.*;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
