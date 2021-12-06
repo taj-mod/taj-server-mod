@@ -1,11 +1,17 @@
 package com.allah.tajmod.entity;
 
+import com.allah.tajmod.TajMod;
+import net.fabricmc.fabric.mixin.gamerule.GameRulesAccessor;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.mob.HostileEntity;
-import net.minecraft.entity.mob.ZombieEntity;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.LightType;
+import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
+import net.minecraft.world.WorldAccess;
 import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.core.PlayState;
 import software.bernie.geckolib3.core.builder.AnimationBuilder;
@@ -13,6 +19,8 @@ import software.bernie.geckolib3.core.controller.AnimationController;
 import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
+
+import java.util.Random;
 
 public class HmaEntity extends HostileEntity implements IAnimatable {
     private AnimationFactory factory = new AnimationFactory(this);
@@ -44,4 +52,16 @@ public class HmaEntity extends HostileEntity implements IAnimatable {
         return HostileEntity.createHostileAttributes().add(EntityAttributes.GENERIC_MAX_HEALTH, 60.0).add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.3f).add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 7.0).add(EntityAttributes.GENERIC_FOLLOW_RANGE, 64.0);
     }
 
+    @Override
+    public boolean canSpawn(WorldAccess worldaccess, SpawnReason spawnReason) {
+        if(world.getGameRules().getBoolean(TajMod.HMA_SPAWNING)) {
+            System.out.println("here");
+            if (this.getPathfindingFavor(this.getBlockPos(), world) >= 0.0F) {
+                System.out.println(world.getTimeOfDay());
+                return (world.getTimeOfDay() > 18000);
+            }
+
+        }
+        return false;
+    }
 }
