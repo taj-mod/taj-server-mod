@@ -27,7 +27,6 @@ import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
 import com.allah.tajmod.entity.goals.HmaAttackGoal;
-
 import java.util.Random;
 
 public class HmaEntity extends HostileEntity implements IAnimatable {
