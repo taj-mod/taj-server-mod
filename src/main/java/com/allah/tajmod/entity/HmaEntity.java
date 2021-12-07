@@ -39,6 +39,7 @@ public class HmaEntity extends HostileEntity implements IAnimatable {
     }
 
     protected void initGoals() {
+        this.goalSelector.add(1, new SwimGoal(this));
         this.goalSelector.add(8, new LookAtEntityGoal(this, PlayerEntity.class, 8.0F));
         this.goalSelector.add(8, new LookAroundGoal(this));
         this.initCustomGoals();
@@ -47,15 +48,20 @@ public class HmaEntity extends HostileEntity implements IAnimatable {
     protected void initCustomGoals() {
         this.goalSelector.add(2, new HmaAttackGoal(this, 1.0D, false));
         this.goalSelector.add(7, new WanderAroundFarGoal(this, 1.0D));
-        this.targetSelector.add(1, (new RevengeGoal(this, new Class[0])).setGroupRevenge(new Class[]{ZombifiedPiglinEntity.class}));
         this.targetSelector.add(2, new ActiveTargetGoal(this, PlayerEntity.class, true));
         this.targetSelector.add(3, new ActiveTargetGoal(this, MerchantEntity.class, false));
         this.targetSelector.add(3, new ActiveTargetGoal(this, IronGolemEntity.class, true));
+        this.targetSelector.add(4, new ActiveTargetGoal(this, HostileEntity.class, true));
     }
 
     public static DefaultAttributeContainer.Builder createHmaAttributes() {
         return HostileEntity.createHostileAttributes().add(EntityAttributes.GENERIC_MAX_HEALTH, 60.0).add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.5f).add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 7.0).add(EntityAttributes.GENERIC_FOLLOW_RANGE, 64.0);
     }
+
+    protected boolean burnsInDaylight() {
+        return true;
+    }
+
 
     private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event)
     {
