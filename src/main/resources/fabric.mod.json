@@ -28,7 +28,7 @@
   "mixins": [
     "tajmod.mixins.json"
   ],
-
+  "accessWidener" : "tajmod.accesswidener",
   "depends": {
     "fabricloader": ">=0.12.8",
     "fabric": "*",

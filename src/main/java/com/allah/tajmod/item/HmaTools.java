@@ -1,26 +1,40 @@
 package com.allah.tajmod.item;
 
-import net.minecraft.item.AxeItem;
-import net.minecraft.item.HoeItem;
-import net.minecraft.item.PickaxeItem;
-import net.minecraft.item.ToolMaterial;
+import net.minecraft.client.item.TooltipContext;
+import net.minecraft.item.*;
+import net.minecraft.text.Text;
+import net.minecraft.text.TranslatableText;
+import net.minecraft.util.Formatting;
+import net.minecraft.world.World;
+
+import java.util.List;
+import java.util.Random;
 
 public class HmaTools {
-    public static class HmaPickaxeItem extends PickaxeItem {
-        public HmaPickaxeItem(ToolMaterial material, int attackDamage, float attackSpeed, Settings settings) {
+    public static class HmaSwordItem extends SwordItem {
+        public HmaSwordItem(ToolMaterial material, int attackDamage, float attackSpeed, Settings settings) {
             super(material, attackDamage, attackSpeed, settings);
         }
-    }
+        @Override
+        public void appendTooltip(ItemStack itemStack, World world, List<Text> tooltip, TooltipContext tooltipContext) {
 
-    public static class HmaHoeItem extends HoeItem {
-        public HmaHoeItem(ToolMaterial material, int attackDamage, float attackSpeed, Settings settings) {
-            super(material, attackDamage, attackSpeed, settings);
+            // default white text
+            tooltip.add( new TranslatableText("item.tutorial.fabric_item.tooltip") );
+
+            // formatted red text
+            tooltip.add( new TranslatableText("item.tutorial.fabric_item.tooltip").formatted(Formatting.RED) );
         }
-    }
 
-    public static class HmaAxeItem extends AxeItem {
-        public HmaAxeItem(ToolMaterial material, int attackDamage, float attackSpeed, Settings settings) {
-            super(material, attackDamage, attackSpeed, settings);
+        @Override
+        public Text getName(ItemStack stack){
+            Random random = new Random();
+            int randomInt = random.nextInt(10);
+            if (randomInt == 0) {
+                return new TranslatableText("item.tajmod.hma_sword").formatted(Formatting.RED);
+            } else if (randomInt == 1) {
+                return new TranslatableText("item.tajmod.hma_sword_cor_1").formatted(Formatting.RED);
+            }
+            return new TranslatableText("item.tajmod.hma_sword");
         }
     }
 }

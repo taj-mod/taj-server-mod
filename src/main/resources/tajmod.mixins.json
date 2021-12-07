@@ -4,7 +4,8 @@
   "package": "com.allah.tajmod.mixin",
   "compatibilityLevel": "JAVA_16",
   "mixins": [
-    "HmaMixin"
+    "HmaMixin",
+    "HeldItemTooltipMixin"
   ],
   "injectors": {
     "defaultRequire": 1

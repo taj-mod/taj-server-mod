@@ -31,11 +31,7 @@ public class TajMod implements ModInitializer {
 	public static final Item HMA_SHARD = new Item(new FabricItemSettings().group(ItemGroup.MISC));
 	public static final Item HMA_CRYSTAL = new Item(new FabricItemSettings().group(ItemGroup.MISC));
 
-	public static ToolItem HMA_SHOVEL = new ShovelItem(HmaToolMaterial.INSTANCE, 1.5F, -3.0F, new Item.Settings().group(ItemGroup.TOOLS));
-	public static ToolItem HMA_SWORD = new SwordItem(HmaToolMaterial.INSTANCE, 3, -2.4F, new Item.Settings().group(ItemGroup.COMBAT));
-	public static ToolItem HMA_PICKAXE = new HmaTools.HmaPickaxeItem(HmaToolMaterial.INSTANCE, 1, -2.8F, new Item.Settings().group(ItemGroup.TOOLS));
-	public static ToolItem HMA_AXE = new HmaTools.HmaAxeItem(HmaToolMaterial.INSTANCE, 7, -3.2F, new Item.Settings().group(ItemGroup.TOOLS));
-	public static ToolItem HMA_HOE = new HmaTools.HmaHoeItem(HmaToolMaterial.INSTANCE, 7, -3.2F, new Item.Settings().group(ItemGroup.TOOLS));
+	public static ToolItem HMA_SWORD = new HmaTools.HmaSwordItem(HmaToolMaterial.INSTANCE, 3, -2.4F, new Item.Settings().group(ItemGroup.COMBAT));
 
 	public static final EntityType<HmaEntity> HMA = Registry.register(
 			Registry.ENTITY_TYPE,
@@ -58,10 +54,6 @@ public class TajMod implements ModInitializer {
 		Registry.register(Registry.ITEM, new Identifier("tajmod", "hma_crystal"), HMA_CRYSTAL);
 
 		Registry.register(Registry.ITEM, new Identifier("tajmod", "hma_sword"), HMA_SWORD);
-		Registry.register(Registry.ITEM, new Identifier("tajmod", "hma_shovel"), HMA_SHOVEL);
-		Registry.register(Registry.ITEM, new Identifier("tajmod", "hma_pickaxe"), HMA_PICKAXE);
-		Registry.register(Registry.ITEM, new Identifier("tajmod", "hma_axe"), HMA_AXE);
-		Registry.register(Registry.ITEM, new Identifier("tajmod", "hma_hoe"), HMA_HOE);
 
 		LOGGER.info("Hello Fabric world!");
 	}
