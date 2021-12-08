@@ -16,11 +16,16 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnGroup;
 import net.minecraft.item.*;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.registry.BuiltinRegistries;
 import net.minecraft.util.registry.Registry;
+import net.minecraft.util.registry.RegistryKey;
 import net.minecraft.world.GameRules;
+import net.minecraft.world.biome.Biome;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import software.bernie.geckolib3.GeckoLib;
+
+import static com.allah.tajmod.biome.HmaHighwayBiome.createHmaHighway;
 
 public class TajMod implements ModInitializer {
 	// This logger is used to write text to the console and the log file.
@@ -46,6 +51,9 @@ public class TajMod implements ModInitializer {
 			new BaneOfHmas()
 	);
 
+	private static final Biome HMA_HIGHWAY = createHmaHighway();
+
+	public static final RegistryKey<Biome> HMA_HIGHWAY_KEY = RegistryKey.of(Registry.BIOME_KEY, new Identifier("tajmod", "hma_highway"));
 	public static final GameRules.Key<GameRules.BooleanRule> HMA_SPAWNING =
 			GameRuleRegistry.register("spawnHmas", GameRules.Category.MOBS, GameRuleFactory.createBooleanRule(true));	@Override
 
@@ -62,6 +70,8 @@ public class TajMod implements ModInitializer {
 		Registry.register(Registry.ITEM, new Identifier("tajmod", "hma_crystal"), HMA_CRYSTAL);
 
 		Registry.register(Registry.ITEM, new Identifier("tajmod", "hma_sword"), HMA_SWORD);
+
+		Registry.register(BuiltinRegistries.BIOME, HMA_HIGHWAY_KEY.getValue(), HMA_HIGHWAY);
 		LOGGER.info("Hello Fabric world!");
 	}
 }
