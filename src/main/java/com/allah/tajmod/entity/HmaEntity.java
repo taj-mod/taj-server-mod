@@ -60,6 +60,10 @@ public class HmaEntity extends HostileEntity implements IAnimatable {
         return false;
     }
 
+    public boolean hurtByWater() {
+        return true;
+    }
+
     public HmaEntity(EntityType<? extends HostileEntity> type, World worldIn)
     {
         super(type, worldIn);
@@ -95,9 +99,9 @@ public class HmaEntity extends HostileEntity implements IAnimatable {
         return HostileEntity.createHostileAttributes().add(EntityAttributes.GENERIC_MAX_HEALTH, 60.0).add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.5f).add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 0.0).add(EntityAttributes.GENERIC_FOLLOW_RANGE, 64.0);
     }
 
-    protected boolean burnsInDaylight() {
-        return true;
-    }
+    //protected boolean burnsInDaylight() {
+    //    return true;
+    //}
 
     public boolean isClimbing() {
         return this.isClimbingWall();
@@ -121,6 +125,9 @@ public class HmaEntity extends HostileEntity implements IAnimatable {
         super.tick();
         if (!this.world.isClient) {
             this.setClimbingWall(this.horizontalCollision);
+        }
+        if (world.getTimeOfDay() > 6000 && world.getTimeOfDay() < 20000) {
+            this.kill();
         }
 
     }
