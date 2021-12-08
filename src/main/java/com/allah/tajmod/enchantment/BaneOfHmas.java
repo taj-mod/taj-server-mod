@@ -1,5 +1,6 @@
 package com.allah.tajmod.enchantment;
 
+import com.allah.tajmod.TajMod;
 import com.allah.tajmod.entity.HmaEntity;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentTarget;
@@ -26,6 +27,9 @@ public class BaneOfHmas extends Enchantment {
 
     @Override
     public float getAttackDamage(int level, EntityGroup group) {
-        return level * 2;
+        if (group == TajMod.HMAS) {
+            return level * 2;
+        }
+        return 0;
     }
 }

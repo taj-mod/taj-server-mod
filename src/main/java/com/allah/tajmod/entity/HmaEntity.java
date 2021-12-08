@@ -3,10 +3,7 @@ package com.allah.tajmod.entity;
 import com.allah.tajmod.TajMod;
 import net.fabricmc.fabric.mixin.gamerule.GameRulesAccessor;
 import net.minecraft.enchantment.EnchantmentHelper;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.SpawnReason;
+import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.ai.pathing.EntityNavigation;
 import net.minecraft.entity.ai.pathing.SpiderNavigation;
@@ -154,19 +151,26 @@ public class HmaEntity extends HostileEntity implements IAnimatable {
 
     @Override
     public boolean canSpawn(WorldAccess worldaccess, SpawnReason spawnReason) {
-        if(world.getGameRules().getBoolean(TajMod.HMA_SPAWNING)) {
-            System.out.println("here");
+        if (spawnReason == spawnReason.NATURAL) {
+            if(world.getGameRules().getBoolean(TajMod.HMA_SPAWNING)) {
             if (this.getPathfindingFavor(this.getBlockPos(), world) >= 0.0F) {
                 System.out.println(world.getTimeOfDay());
                 return (world.getTimeOfDay() > 18000);
             }
 
+            }
+            return false;
         }
-        return false;
+        return true;
     }
 
     @Override
     public boolean tryAttack(Entity target){
         return target.damage(DamageSource.GENERIC, 4);
+    }
+
+    @Override
+    public EntityGroup getGroup() {
+        return TajMod.HMAS;
     }
 }

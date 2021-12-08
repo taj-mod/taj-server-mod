@@ -12,6 +12,7 @@ import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRe
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.EntityDimensions;
+import net.minecraft.entity.EntityGroup;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnGroup;
 import net.minecraft.item.*;
@@ -44,6 +45,8 @@ public class TajMod implements ModInitializer {
 			new Identifier("tajmod", "hma"),
 			FabricEntityTypeBuilder.create(SpawnGroup.CREATURE, HmaEntity::new).dimensions(EntityDimensions.fixed(0.925f, 3.8125f)).trackRangeBlocks(8).build()
 	);
+
+	public static final EntityGroup HMAS = new EntityGroup();
 
 	public static Enchantment BANE_OF_HMAS = Registry.register(
 			Registry.ENCHANTMENT,
