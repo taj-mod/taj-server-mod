@@ -84,7 +84,7 @@ public class HmaEntity extends HostileEntity implements IAnimatable {
 
 
     public static DefaultAttributeContainer.Builder createHmaAttributes() {
-        return HostileEntity.createHostileAttributes().add(EntityAttributes.GENERIC_MAX_HEALTH, 60.0).add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.3f).add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 0.0).add(EntityAttributes.GENERIC_FOLLOW_RANGE, 150.0).add(EntityAttributes.GENERIC_ATTACK_KNOCKBACK,0);
+        return HostileEntity.createHostileAttributes().add(EntityAttributes.GENERIC_MAX_HEALTH, 60.0).add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.3f).add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 0.0).add(EntityAttributes.GENERIC_FOLLOW_RANGE, 150.0).add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE,1D);
     }
 
 
@@ -136,6 +136,7 @@ public class HmaEntity extends HostileEntity implements IAnimatable {
     private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event)
     {
 
+
         if (this.prevX == this.getX() && this.prevY == this.getY() && this.prevZ == this.getZ()) {
             System.out.println("not walking");
             return PlayState.STOP;
@@ -147,6 +148,7 @@ public class HmaEntity extends HostileEntity implements IAnimatable {
             return PlayState.CONTINUE;
 
         }
+
 
     }
 
