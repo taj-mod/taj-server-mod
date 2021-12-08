@@ -11,7 +11,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(InGameHud.class)
 public class HeldItemTooltipMixin {
-    @Inject(method = "    renderHeldItemTooltip(Lnet/minecraft/client/util/math/MatrixStack;)V\n", at = @At("HEAD"), cancellable = true)
+    @Inject(method = "renderHeldItemTooltip(Lnet/minecraft/client/util/math/MatrixStack;)V\n", at = @At("HEAD"), cancellable = true)
     private void injected(MatrixStack matrices, CallbackInfo ci) {
         if (((InGameHud)(Object)this).currentStack.getName().toString().contains("hma_sword") || ((InGameHud)(Object)this).currentStack.getName().toString().contains("hm_sword")) {
             ci.cancel();
