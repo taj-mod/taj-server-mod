@@ -94,7 +94,7 @@ public class HmaEntity extends HostileEntity implements IAnimatable {
 
 
     public static DefaultAttributeContainer.Builder createHmaAttributes() {
-        return HostileEntity.createHostileAttributes().add(EntityAttributes.GENERIC_MAX_HEALTH, 60.0).add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.5f).add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 0.0).add(EntityAttributes.GENERIC_FOLLOW_RANGE, 64.0).add(EntityAttributes.GENERIC_ATTACK_KNOCKBACK,0);
+        return HostileEntity.createHostileAttributes().add(EntityAttributes.GENERIC_MAX_HEALTH, 60.0).add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.3f).add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 0.0).add(EntityAttributes.GENERIC_FOLLOW_RANGE, 64.0).add(EntityAttributes.GENERIC_ATTACK_KNOCKBACK,0);
     }
 
     //protected boolean burnsInDaylight() {
@@ -131,10 +131,10 @@ public class HmaEntity extends HostileEntity implements IAnimatable {
         if (livingEntity != null) {
             double d = this.squaredDistanceTo(livingEntity);
 
-            if (d < 7.0D && this.getAttributeValue(EntityAttributes.GENERIC_MOVEMENT_SPEED) == 0.5f) {
+            if (d < 7.0D && this.getAttributeValue(EntityAttributes.GENERIC_MOVEMENT_SPEED) == 0.3f) {
                 this.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED).addPersistentModifier(new EntityAttributeModifier("Charge bonus", 2.0D , EntityAttributeModifier.Operation.MULTIPLY_TOTAL));
 
-            } else if (d > 7.0D && this.getAttributeValue(EntityAttributes.GENERIC_MOVEMENT_SPEED) == 1f){
+            } else if (d > 7.0D && this.getAttributeValue(EntityAttributes.GENERIC_MOVEMENT_SPEED) == 0.6f){
                 this.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED).addPersistentModifier(new EntityAttributeModifier("Charge bonus", 0.5D , EntityAttributeModifier.Operation.MULTIPLY_TOTAL));
             }
         }
