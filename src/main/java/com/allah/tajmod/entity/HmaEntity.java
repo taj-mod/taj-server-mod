@@ -8,6 +8,7 @@ import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.ai.pathing.EntityNavigation;
 import net.minecraft.entity.ai.pathing.SpiderNavigation;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
+import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
@@ -93,7 +94,7 @@ public class HmaEntity extends HostileEntity implements IAnimatable {
 
 
     public static DefaultAttributeContainer.Builder createHmaAttributes() {
-        return HostileEntity.createHostileAttributes().add(EntityAttributes.GENERIC_MAX_HEALTH, 60.0).add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.5f).add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 0.0).add(EntityAttributes.GENERIC_FOLLOW_RANGE, 64.0);
+        return HostileEntity.createHostileAttributes().add(EntityAttributes.GENERIC_MAX_HEALTH, 60.0).add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.5f).add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 0.0).add(EntityAttributes.GENERIC_FOLLOW_RANGE, 64.0).add(EntityAttributes.GENERIC_ATTACK_KNOCKBACK,0);
     }
 
     //protected boolean burnsInDaylight() {
@@ -126,9 +127,19 @@ public class HmaEntity extends HostileEntity implements IAnimatable {
         if (world.getTimeOfDay() > 6000 && world.getTimeOfDay() < 20000) {
             this.kill();
         }
+        LivingEntity livingEntity = this.getTarget();
+        if (livingEntity != null) {
+            double d = this.squaredDistanceTo(livingEntity);
+
+            if (d < 20.0D && this.getAttributeValue(EntityAttributes.GENERIC_MOVEMENT_SPEED) == 0.5f) {
+                this.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED).addPersistentModifier(new EntityAttributeModifier("Charge bonus", 2.0D , EntityAttributeModifier.Operation.MULTIPLY_TOTAL));
+
+            } else if (d > 20.0D && this.getAttributeValue(EntityAttributes.GENERIC_MOVEMENT_SPEED) == 1f){
+                this.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED).addPersistentModifier(new EntityAttributeModifier("Charge bonus", 0.5D , EntityAttributeModifier.Operation.MULTIPLY_TOTAL));
+            }
+        }
 
     }
-
     private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event)
     {
         event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.bat.fly", true));
