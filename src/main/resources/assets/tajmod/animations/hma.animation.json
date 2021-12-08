@@ -127,7 +127,6 @@
 			}
 		},
 		"hma attack": {
-			"loop": true,
 			"animation_length": 0.6667,
 			"bones": {
 				"right_arm4": {
