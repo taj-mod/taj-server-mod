@@ -131,10 +131,10 @@ public class HmaEntity extends HostileEntity implements IAnimatable {
         if (livingEntity != null) {
             double d = this.squaredDistanceTo(livingEntity);
 
-            if (d < 20.0D && this.getAttributeValue(EntityAttributes.GENERIC_MOVEMENT_SPEED) == 0.5f) {
+            if (d < 7.0D && this.getAttributeValue(EntityAttributes.GENERIC_MOVEMENT_SPEED) == 0.5f) {
                 this.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED).addPersistentModifier(new EntityAttributeModifier("Charge bonus", 2.0D , EntityAttributeModifier.Operation.MULTIPLY_TOTAL));
 
-            } else if (d > 20.0D && this.getAttributeValue(EntityAttributes.GENERIC_MOVEMENT_SPEED) == 1f){
+            } else if (d > 7.0D && this.getAttributeValue(EntityAttributes.GENERIC_MOVEMENT_SPEED) == 1f){
                 this.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED).addPersistentModifier(new EntityAttributeModifier("Charge bonus", 0.5D , EntityAttributeModifier.Operation.MULTIPLY_TOTAL));
             }
         }
