@@ -4,11 +4,23 @@
 
 package com.allah.tajmod.entity.model;
 
+import net.minecraft.entity.LivingEntity;
+import software.bernie.geckolib3.GeckoLib;
+import software.bernie.geckolib3.core.IAnimatable;
+import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
+import software.bernie.geckolib3.core.processor.IBone;
+import software.bernie.geckolib3.model.AnimatedTickingGeoModel;
+import software.bernie.geckolib3.model.provider.data.EntityModelData;
 import com.allah.tajmod.entity.HmaEntity;
 import net.minecraft.util.Identifier;
 import software.bernie.geckolib3.model.AnimatedGeoModel;
 
 public class HmaEntityModel extends AnimatedGeoModel<HmaEntity> {
+	@Override
+	public Identifier getAnimationFileLocation(HmaEntity object) {
+		return new Identifier("tajmod", "animations/hma.animation.json");
+	}
+
 	@Override
 	public Identifier getModelLocation(HmaEntity object)
 	{
@@ -20,10 +32,5 @@ public class HmaEntityModel extends AnimatedGeoModel<HmaEntity> {
 	{
 		return new Identifier("tajmod", "textures/entity/hma/texture.png");
 	}
-	@Override
 
-	public Identifier getAnimationFileLocation(HmaEntity object)
-	{
-		return new Identifier("tajmod", "animations/hma.animation.json");
-	}
 }

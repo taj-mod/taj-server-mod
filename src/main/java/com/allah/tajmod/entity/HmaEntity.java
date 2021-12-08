@@ -56,6 +56,8 @@ public class HmaEntity extends HostileEntity implements IAnimatable {
         this.ignoreCameraFrustum = true;
     }
 
+
+
     protected void initGoals() {
         this.goalSelector.add(1, new SwimGoal(this));
         this.goalSelector.add(8, new LookAtEntityGoal(this, PlayerEntity.class, 8.0F));
@@ -109,36 +111,41 @@ public class HmaEntity extends HostileEntity implements IAnimatable {
         if (!this.world.isClient) {
             this.setClimbingWall(this.horizontalCollision);
         }
-        if (world.getTimeOfDay() > 6000 && world.getTimeOfDay() < 18000) {
+        if (world.getTimeOfDay() > 0 && world.getTimeOfDay() < 12000) {
             this.kill();
         }
         LivingEntity livingEntity = this.getTarget();
         double d = 999.0D;
         if (livingEntity != null) {
-             d = this.squaredDistanceTo(livingEntity);
+            d = this.squaredDistanceTo(livingEntity);
         } else {
-             d = 999.0D;
+            d = 999.0D;
         }
 
-        if (d < 12.0D && this.getAttributeValue(EntityAttributes.GENERIC_MOVEMENT_SPEED) == 0.3f) {
-            this.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED).addPersistentModifier(new EntityAttributeModifier("Charge bonus", 0.2f , EntityAttributeModifier.Operation.ADDITION));
+        if (d < 70D && this.getAttributeValue(EntityAttributes.GENERIC_MOVEMENT_SPEED) < 0.5f) {
+            this.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED).addPersistentModifier(new EntityAttributeModifier("Charge bonus", 0.2f, EntityAttributeModifier.Operation.ADDITION));
 
-        } else if (d > 12.0D && this.getAttributeValue(EntityAttributes.GENERIC_MOVEMENT_SPEED) == 0.5f){
-            this.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED).addPersistentModifier(new EntityAttributeModifier("Charge bonus", -0.2f , EntityAttributeModifier.Operation.ADDITION));
+        } else if (d > 70D && this.getAttributeValue(EntityAttributes.GENERIC_MOVEMENT_SPEED) > 0.3f) {
+            this.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED).addPersistentModifier(new EntityAttributeModifier("Charge bonus", -0.2f, EntityAttributeModifier.Operation.ADDITION));
         }
-
+        //System.out.println(this.getAttributeValue(EntityAttributes.GENERIC_MOVEMENT_SPEED));
 
 
     }
 
     private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event)
     {
+
         if (this.prevX == this.getX() && this.prevY == this.getY() && this.prevZ == this.getZ()) {
+            System.out.println("not walking");
             return PlayState.STOP;
+
         }
         else {
-            event.getController().setAnimation(new AnimationBuilder().addAnimation("resources/assets/tajmod/animations/hmawalk.animation.json", true));
+            event.getController().setAnimation(new AnimationBuilder().addAnimation("hma walk", true));
+            System.out.println("walking");
             return PlayState.CONTINUE;
+
         }
 
     }
@@ -163,7 +170,7 @@ public class HmaEntity extends HostileEntity implements IAnimatable {
             if(world.getGameRules().getBoolean(TajMod.HMA_SPAWNING)) {
             if (this.getPathfindingFavor(this.getBlockPos(), world) >= 0.0F) {
                 System.out.println(world.getTimeOfDay());
-                return (world.getTimeOfDay() > 18000);
+                return (world.getTimeOfDay() > 12000);
             }
 
             }
