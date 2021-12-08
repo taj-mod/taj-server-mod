@@ -21,6 +21,7 @@ import net.minecraft.entity.passive.MerchantEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
+import net.minecraft.world.dimension.DimensionType;
 import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.core.PlayState;
 import software.bernie.geckolib3.core.builder.AnimationBuilder;
@@ -34,6 +35,7 @@ public class HmaEntity extends HostileEntity implements IAnimatable {
     private AnimationFactory factory = new AnimationFactory(this);
     private static final TrackedData<Byte> HMA_FLAGS;
 
+    private int attacktime = 0;
 
 
 
@@ -135,21 +137,24 @@ public class HmaEntity extends HostileEntity implements IAnimatable {
 
     private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event)
     {
-
-
-        if (this.prevX == this.getX() && this.prevY == this.getY() && this.prevZ == this.getZ()) {
+        if (event.getController().getCurrentAnimation() != null) {
+            if (event.getController().getCurrentAnimation().animationName == "hma attack") {
+                return PlayState.CONTINUE;
+            }
+        }
+        if (this.isAttacking()) {
+            event.getController().setAnimation(new AnimationBuilder().addAnimation("hma attack", false));
+            return PlayState.CONTINUE;
+        }
+        else if (this.prevX == this.getX() && this.prevY == this.getY() && this.prevZ == this.getZ()) {
             System.out.println("not walking");
             return PlayState.STOP;
-
         }
         else {
             event.getController().setAnimation(new AnimationBuilder().addAnimation("hma walk", true));
             System.out.println("walking");
             return PlayState.CONTINUE;
-
         }
-
-
     }
 
 
@@ -168,6 +173,9 @@ public class HmaEntity extends HostileEntity implements IAnimatable {
 
     @Override
     public boolean canSpawn(WorldAccess worldaccess, SpawnReason spawnReason) {
+        if (world.getDimension().hasEnderDragonFight()) {
+            return true;
+        }
         if (spawnReason == spawnReason.NATURAL) {
             if(world.getGameRules().getBoolean(TajMod.HMA_SPAWNING)) {
             if (this.getPathfindingFavor(this.getBlockPos(), world) >= 0.0F) {
