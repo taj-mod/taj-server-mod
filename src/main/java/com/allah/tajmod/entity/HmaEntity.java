@@ -128,11 +128,19 @@ public class HmaEntity extends HostileEntity implements IAnimatable {
         }
 
 
+
     }
+
     private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event)
     {
-        event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.bat.fly", true));
-        return PlayState.CONTINUE;
+        if (this.prevX == this.getX() && this.prevY == this.getY() && this.prevZ == this.getZ()) {
+            return PlayState.STOP;
+        }
+        else {
+            event.getController().setAnimation(new AnimationBuilder().addAnimation("resources/assets/tajmod/animations/hmawalk.animation.json", true));
+            return PlayState.CONTINUE;
+        }
+
     }
 
 
