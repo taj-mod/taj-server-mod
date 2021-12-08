@@ -128,16 +128,20 @@ public class HmaEntity extends HostileEntity implements IAnimatable {
             this.kill();
         }
         LivingEntity livingEntity = this.getTarget();
+        double d = 999.0D;
         if (livingEntity != null) {
-            double d = this.squaredDistanceTo(livingEntity);
-
-            if (d < 7.0D && this.getAttributeValue(EntityAttributes.GENERIC_MOVEMENT_SPEED) == 0.3f) {
-                this.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED).addPersistentModifier(new EntityAttributeModifier("Charge bonus", 2.0D , EntityAttributeModifier.Operation.MULTIPLY_TOTAL));
-
-            } else if (d > 7.0D && this.getAttributeValue(EntityAttributes.GENERIC_MOVEMENT_SPEED) == 0.6f){
-                this.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED).addPersistentModifier(new EntityAttributeModifier("Charge bonus", 0.5D , EntityAttributeModifier.Operation.MULTIPLY_TOTAL));
-            }
+             d = this.squaredDistanceTo(livingEntity);
+        } else {
+             d = 999.0D;
         }
+
+        if (d < 12.0D && this.getAttributeValue(EntityAttributes.GENERIC_MOVEMENT_SPEED) == 0.3f) {
+            this.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED).addPersistentModifier(new EntityAttributeModifier("Charge bonus", 0.2f , EntityAttributeModifier.Operation.ADDITION));
+
+        } else if (d > 12.0D && this.getAttributeValue(EntityAttributes.GENERIC_MOVEMENT_SPEED) == 0.5f){
+            this.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED).addPersistentModifier(new EntityAttributeModifier("Charge bonus", -0.2f , EntityAttributeModifier.Operation.ADDITION));
+        }
+
 
     }
     private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event)
