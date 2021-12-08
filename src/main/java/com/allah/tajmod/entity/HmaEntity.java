@@ -2,7 +2,10 @@ package com.allah.tajmod.entity;
 
 import com.allah.tajmod.TajMod;
 import net.fabricmc.fabric.mixin.gamerule.GameRulesAccessor;
+import net.minecraft.enchantment.EnchantmentHelper;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.ai.pathing.EntityNavigation;
@@ -13,12 +16,17 @@ import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.mob.*;
+import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.entity.mob.HostileEntity;
+import net.minecraft.entity.mob.ZombifiedPiglinEntity;
 import net.minecraft.entity.passive.IronGolemEntity;
 import net.minecraft.entity.passive.MerchantEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.LightType;
 import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
@@ -68,6 +76,7 @@ public class HmaEntity extends HostileEntity implements IAnimatable {
     protected void initCustomGoals() {
         this.goalSelector.add(2, new HmaAttackGoal(this, 1.0D, false));
         this.goalSelector.add(7, new WanderAroundFarGoal(this, 1.0D));
+        this.targetSelector.add(1, (new RevengeGoal(this, new Class[0])).setGroupRevenge(new Class[]{ZombifiedPiglinEntity.class}));
         this.targetSelector.add(2, new ActiveTargetGoal(this, PlayerEntity.class, true));
         this.targetSelector.add(3, new ActiveTargetGoal(this, MerchantEntity.class, false));
         this.targetSelector.add(3, new ActiveTargetGoal(this, IronGolemEntity.class, true));
@@ -83,7 +92,7 @@ public class HmaEntity extends HostileEntity implements IAnimatable {
 
 
     public static DefaultAttributeContainer.Builder createHmaAttributes() {
-        return HostileEntity.createHostileAttributes().add(EntityAttributes.GENERIC_MAX_HEALTH, 60.0).add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.4f).add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 4.0).add(EntityAttributes.GENERIC_FOLLOW_RANGE, 64.0);
+        return HostileEntity.createHostileAttributes().add(EntityAttributes.GENERIC_MAX_HEALTH, 60.0).add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.5f).add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 0.0).add(EntityAttributes.GENERIC_FOLLOW_RANGE, 64.0);
     }
 
     protected boolean burnsInDaylight() {
@@ -147,5 +156,10 @@ public class HmaEntity extends HostileEntity implements IAnimatable {
 
         }
         return false;
+    }
+
+    @Override
+    public boolean tryAttack(Entity target){
+        return target.damage(DamageSource.GENERIC, 4);
     }
 }
