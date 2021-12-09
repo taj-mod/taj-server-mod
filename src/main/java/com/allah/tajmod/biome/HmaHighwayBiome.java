@@ -17,7 +17,7 @@ public class HmaHighwayBiome {
 
         SpawnSettings.Builder spawnSettings = new SpawnSettings.Builder();
         DefaultBiomeFeatures.addFarmAnimals(spawnSettings);
-        spawnSettings.spawn(SpawnGroup.CREATURE, new SpawnSettings.SpawnEntry(TajMod.HMA, 50, 4, 4));
+        spawnSettings.spawn(SpawnGroup.CREATURE, new SpawnSettings.SpawnEntry(TajMod.HMA, 100, 6, 6));
 
         GenerationSettings.Builder generationSettings = new GenerationSettings.Builder();
 

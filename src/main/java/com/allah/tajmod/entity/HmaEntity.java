@@ -143,16 +143,17 @@ public class HmaEntity extends HostileEntity implements IAnimatable {
             }
         }
         if (this.isAttacking()) {
+            System.out.println("attacking");
             event.getController().setAnimation(new AnimationBuilder().addAnimation("hma attack", false));
             return PlayState.CONTINUE;
         }
         else if (this.prevX == this.getX() && this.prevY == this.getY() && this.prevZ == this.getZ()) {
-            System.out.println("not walking");
+            //System.out.println("not walking");
             return PlayState.STOP;
         }
         else {
             event.getController().setAnimation(new AnimationBuilder().addAnimation("hma walk", true));
-            System.out.println("walking");
+            //System.out.println("walking");
             return PlayState.CONTINUE;
         }
     }
@@ -191,6 +192,7 @@ public class HmaEntity extends HostileEntity implements IAnimatable {
 
     @Override
     public boolean tryAttack(Entity target){
+        this.setAttacking(true);
         return target.damage(DamageSource.GENERIC, 4);
     }
 

@@ -13,6 +13,7 @@ public class HmaAttackGoal extends MeleeAttackGoal {
     }
 
     public void start() {
+        this.Hma.setAttacking(true);
         super.start();
         this.ticks = 0;
     }

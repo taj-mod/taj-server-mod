@@ -43,7 +43,7 @@ public class TajMod implements ModInitializer {
 	public static final EntityType<HmaEntity> HMA = Registry.register(
 			Registry.ENTITY_TYPE,
 			new Identifier("tajmod", "hma"),
-			FabricEntityTypeBuilder.create(SpawnGroup.CREATURE, HmaEntity::new).dimensions(EntityDimensions.fixed(0.925f, 3.8125f)).trackRangeBlocks(8).build()
+			FabricEntityTypeBuilder.create(SpawnGroup.CREATURE, HmaEntity::new).dimensions(EntityDimensions.fixed(0.925f, 3.8125f)).trackRangeBlocks(8).fireImmune().build()
 	);
 
 	public static final EntityGroup HMAS = new EntityGroup();
