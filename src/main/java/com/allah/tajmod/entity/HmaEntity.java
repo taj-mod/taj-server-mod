@@ -13,9 +13,6 @@ import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
-import net.minecraft.entity.effect.StatusEffect;
-import net.minecraft.entity.effect.StatusEffectInstance;
-import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.mob.*;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.mob.HostileEntity;
@@ -25,7 +22,6 @@ import net.minecraft.entity.passive.MerchantEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
-import net.minecraft.world.dimension.DimensionType;
 import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.core.PlayState;
 import software.bernie.geckolib3.core.builder.AnimationBuilder;
@@ -125,41 +121,34 @@ public class HmaEntity extends HostileEntity implements IAnimatable {
         double d = 999.0D;
         if (livingEntity != null) {
             d = this.squaredDistanceTo(livingEntity);
-            this.addStatusEffect(new StatusEffectInstance(StatusEffects.FIRE_RESISTANCE, 1000));
         } else {
             d = 999.0D;
         }
 
         if (d < 70D && this.getAttributeValue(EntityAttributes.GENERIC_MOVEMENT_SPEED) < 0.5f) {
             this.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED).addPersistentModifier(new EntityAttributeModifier("Charge bonus", 0.2f, EntityAttributeModifier.Operation.ADDITION));
-            //this.addStatusEffect(new StatusEffectInstance(StatusEffects.FIRE_RESISTANCE, 1000));
 
         } else if (d > 70D && this.getAttributeValue(EntityAttributes.GENERIC_MOVEMENT_SPEED) > 0.3f) {
             this.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED).addPersistentModifier(new EntityAttributeModifier("Charge bonus", -0.2f, EntityAttributeModifier.Operation.ADDITION));
         }
-        //System.out.println(this.getAttributeValue(EntityAttributes.GENERIC_MOVEMENT_SPEED));
 
 
     }
 
     private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event)
     {
-        //LivingEntity livingEntity = this.getTarget();
 
-        //if (livingEntity != null) {
-            if (this.isAttacking()) {
-                event.getController().setAnimation(new AnimationBuilder().addAnimation("hma attack", false));
-                return PlayState.CONTINUE;
-            }
+        if (this.isAttacking()) {
+            event.getController().setAnimation(new AnimationBuilder().addAnimation("hma attack", false));
+            return PlayState.CONTINUE;
+        }
 
-        //}
+
         if (this.prevX == this.getX() && this.prevY == this.getY() && this.prevZ == this.getZ()) {
-            //System.out.println("not walking");
             return PlayState.STOP;
         }
         else {
             event.getController().setAnimation(new AnimationBuilder().addAnimation("hma walk", true));
-            //System.out.println("walking");
             return PlayState.CONTINUE;
         }
     }
