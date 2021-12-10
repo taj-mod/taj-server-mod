@@ -10,27 +10,27 @@ public class HmaToolMaterial implements ToolMaterial {
 
     @Override
     public int getDurability() {
-        return 500;
+        return 4000;
     }
 
     @Override
     public float getMiningSpeedMultiplier() {
-        return 5.0F;
+        return 10.0F;
     }
 
     @Override
     public float getAttackDamage() {
-        return 3.0F;
+        return 4.0F;
     }
 
     @Override
     public int getMiningLevel() {
-        return 2;
+        return 4;
     }
 
     @Override
     public int getEnchantability() {
-        return 15;
+        return 20;
     }
     @Override
     public Ingredient getRepairIngredient() {

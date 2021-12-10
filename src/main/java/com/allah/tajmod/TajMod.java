@@ -5,6 +5,8 @@ import com.allah.tajmod.entity.HmaEntity;
 import com.allah.tajmod.item.HmaTools;
 import com.allah.tajmod.toolmaterials.HmaToolMaterial;
 import net.fabricmc.api.ModInitializer;
+import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
+import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
 import net.fabricmc.fabric.api.gamerule.v1.GameRuleFactory;
 import net.fabricmc.fabric.api.gamerule.v1.GameRuleRegistry;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
@@ -15,6 +17,7 @@ import net.minecraft.entity.EntityDimensions;
 import net.minecraft.entity.EntityGroup;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnGroup;
+import net.minecraft.entity.mob.ZombieEntity;
 import net.minecraft.item.*;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.BuiltinRegistries;
@@ -38,7 +41,11 @@ public class TajMod implements ModInitializer {
 	public static final Item HMA_SHARD = new Item(new FabricItemSettings().group(ItemGroup.MISC));
 	public static final Item HMA_CRYSTAL = new Item(new FabricItemSettings().group(ItemGroup.MISC));
 
+	public static ToolItem HMA_SHOVEL = new ShovelItem(HmaToolMaterial.INSTANCE, 1.5F, -3.0F, new Item.Settings().group(ItemGroup.TOOLS));
 	public static ToolItem HMA_SWORD = new HmaTools.HmaSwordItem(HmaToolMaterial.INSTANCE, 3, -2.4F, new Item.Settings().group(ItemGroup.COMBAT));
+	public static ToolItem HMA_PICKAXE = new HmaTools.HmaPickaxeItem(HmaToolMaterial.INSTANCE, 1, -2.8F, new Item.Settings().group(ItemGroup.TOOLS));
+	public static ToolItem HMA_AXE = new HmaTools.HmaAxeItem(HmaToolMaterial.INSTANCE, 7, -3.2F, new Item.Settings().group(ItemGroup.TOOLS));
+	public static ToolItem HMA_HOE = new HmaTools.HmaHoeItem(HmaToolMaterial.INSTANCE, 7, -3.2F, new Item.Settings().group(ItemGroup.TOOLS));
 
 	public static final EntityType<HmaEntity> HMA = Registry.register(
 			Registry.ENTITY_TYPE,
@@ -73,8 +80,14 @@ public class TajMod implements ModInitializer {
 		Registry.register(Registry.ITEM, new Identifier("tajmod", "hma_crystal"), HMA_CRYSTAL);
 
 		Registry.register(Registry.ITEM, new Identifier("tajmod", "hma_sword"), HMA_SWORD);
+		Registry.register(Registry.ITEM, new Identifier("tajmod", "hma_shovel"), HMA_SHOVEL);
+		Registry.register(Registry.ITEM, new Identifier("tajmod", "hma_pickaxe"), HMA_PICKAXE);
+		Registry.register(Registry.ITEM, new Identifier("tajmod", "hma_axe"), HMA_AXE);
+		Registry.register(Registry.ITEM, new Identifier("tajmod", "hma_hoe"), HMA_HOE);
 
 		Registry.register(BuiltinRegistries.BIOME, HMA_HIGHWAY_KEY.getValue(), HMA_HIGHWAY);
+
+		BiomeModifications.addSpawn(BiomeSelectors.spawnsOneOf(EntityType.ZOMBIE), SpawnGroup.MONSTER, TajMod.HMA, 1, 1, 1);
 		LOGGER.info("Hello Fabric world!");
 	}
 }

@@ -116,7 +116,7 @@ public class HmaEntity extends HostileEntity implements IAnimatable {
         if (!this.world.isClient) {
             this.setClimbingWall(this.horizontalCollision);
         }
-        if (world.getTimeOfDay() > 0 && world.getTimeOfDay() < 12000) {
+        if (world.getTimeOfDay() < 12000) {
             this.kill();
         }
         LivingEntity livingEntity = this.getTarget();
